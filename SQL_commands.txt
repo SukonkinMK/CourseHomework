@@ -1,0 +1,142 @@
+DROP DATABASE IF EXISTS Друзья_человека;
+CREATE DATABASE Друзья_человека;
+USE Друзья_человека;
+
+DROP TABLE IF EXISTS Собаки;
+CREATE TABLE Собаки (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(45),
+	commands VARCHAR(200),
+	birthday DATE,
+    group_id INT DEFAULT 1,
+    class_id INT DEFAULT 1
+);
+
+INSERT INTO Собаки (name, commands, birthday)
+VALUES
+('Шарик', 'Голос Сидеть Лежать', '2011-12-20'),
+('Мухтар', 'Можно Фу Лежать', '2015-05-17');
+
+DROP TABLE IF EXISTS Кошки;
+CREATE TABLE Кошки (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(45),
+	commands VARCHAR(200),
+	birthday DATE,
+    group_id INT DEFAULT 1,
+    class_id INT DEFAULT 2
+);
+
+INSERT INTO Кошки (name, commands, birthday)
+VALUES
+('Мурзик', 'Есть Гулять', '2013-10-21'),
+('Олег', 'Можно Лапу', '2015-06-12');
+
+DROP TABLE IF EXISTS Хомяки;
+CREATE TABLE Хомяки (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(45),
+	commands VARCHAR(200),
+	birthday DATE,
+    group_id INT DEFAULT 1,
+    class_id INT DEFAULT 3
+);
+
+INSERT INTO Хомяки (name, commands, birthday)
+VALUES
+('Боня', 'Бегать', '2020-10-21'),
+('Крыса', 'Есть', '2021-06-12');
+
+DROP TABLE IF EXISTS Лошади;
+CREATE TABLE Лошади (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(45),
+	commands VARCHAR(200),
+	birthday DATE,
+    group_id INT DEFAULT 2,
+    class_id INT DEFAULT 1
+);
+
+INSERT INTO Лошади (name, commands, birthday)
+VALUES
+('Молния', 'Галоп', '2020-08-11'),
+('Буран', 'Стой', '2019-06-15');
+
+DROP TABLE IF EXISTS Верблюды;
+CREATE TABLE Верблюды (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(45),
+	commands VARCHAR(200),
+	birthday DATE,
+    group_id INT DEFAULT 2,
+    class_id INT DEFAULT 2
+);
+
+INSERT INTO Верблюды (name, commands, birthday)
+VALUES
+('Густаф', 'Галоп', '2018-01-23'),
+('Горбик', 'Стой', '2019-11-14');
+
+DROP TABLE IF EXISTS Ослы;
+CREATE TABLE Ослы (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+	name VARCHAR(45),
+	commands VARCHAR(200),
+	birthday DATE,
+    group_id INT DEFAULT 2,
+    class_id INT DEFAULT 3
+);
+
+INSERT INTO Ослы (name, commands, birthday)
+VALUES
+('Иа', 'Стой', '2017-02-21'),
+('Плакса', 'Но', '2018-10-18');
+
+DROP TABLE IF EXISTS Домашние_животные;
+CREATE TABLE Домашние_животные (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+    class_id INT,
+    class_name VARCHAR(45)
+);
+
+INSERT INTO Домашние_животные ( class_id, class_name)
+VALUES
+(1, 'Собаки'),
+(2, 'Кошки'),
+(3, 'Хомяки');
+
+DROP TABLE IF EXISTS Вьючные_животные;
+CREATE TABLE Вьючные_животные (
+	id INT AUTO_INCREMENT PRIMARY KEY, 
+    class_id INT,
+    class_name VARCHAR(45)
+);
+
+INSERT INTO Вьючные_животные ( class_id, class_name)
+VALUES
+(1, 'Лошади'),
+(2, 'Верблюды'),
+(3, 'Ослы');
+
+DELETE FROM Вьючные_животные
+WHERE id = 2;
+DROP TABLE Верблюды;
+
+SELECT * FROM Лошади
+UNION
+SELECT * FROM Ослы;
+
+DROP TABLE IF EXISTS Молодые_животные;
+
+CREATE TABLE pets  (SELECT * FROM Лошади
+UNION
+SELECT * FROM Ослы
+UNION
+SELECT * FROM Собаки
+UNION
+SELECT * FROM Кошки
+UNION
+SELECT * FROM Хомяки);
+CREATE TABLE Молодые_животные 
+SELECT *, (TIMESTAMPDIFF(MONTH, pets.birthday, CURDATE())) AS 'возраст' FROM pets
+WHERE (TIMESTAMPDIFF(MONTH, pets.birthday, CURDATE())) BETWEEN 13 AND 35;
