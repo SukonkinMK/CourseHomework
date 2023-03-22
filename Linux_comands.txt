@@ -1,0 +1,18 @@
+cat > Домашние_животные
+собаки кошки хомяки
+cat > Вьючные_животные
+лошади верблюды ослы
+cat Домашние_животные Вьючные_животные > Sum
+cat Sum
+mv Sum Друзья_человека
+mkdir homework
+mv Друзья_человека homework/
+cd /tmp
+wget -c https://dev.mysql.com/get/mysql-apt-config_0.8.23-1_all.deb
+sudo dpkg -i mysql-apt-config_0.8.23-1_all.deb
+sudo apt update
+sudo apt-get install mysql-server	
+sudo wget https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-ce-cli_23.0.1-1~ubuntu.22.04~jammy_amd64.deb
+sudo dpkg -i docker-ce-cli_23.0.1-1~ubuntu.22.04~jammy_amd64.deb
+sudo dpkg -r docker-ce-cli
+
